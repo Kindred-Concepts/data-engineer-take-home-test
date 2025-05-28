@@ -27,7 +27,7 @@ You are provided with three CSV files:
 | created_at    | Date    |
 | destination_id| String  |
 
-### 3. `travel_plan_matches.csv`
+### 3. `trip_matching.csv`
 
 | Column Name     | Type    |
 |------------------|---------|
