@@ -18,7 +18,7 @@ You are provided with three CSV files:
 | id                   | String  |
 | home_destination_id  | String  |
 
-### 2. `travel_plans.csv`
+### 2. `wishlists.csv`
 
 | Column Name   | Type    |
 |---------------|---------|
