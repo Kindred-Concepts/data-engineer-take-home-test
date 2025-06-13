@@ -3,7 +3,7 @@
 
 ## Overview
 
-This take-home assignment is designed to evaluate your ability to work with large-scale data processing, optimize ETL pipelines, and distributed systems like PySpark or Spark.
+This take-home assignment is designed to evaluate your ability to work with large-scale data processing, optimize ETL pipelines, and work with distributed systems like PySpark or Spark.
 
 ---
 
@@ -16,49 +16,48 @@ You are provided with three CSV files:
 | Column Name          | Type    |
 |----------------------|---------|
 | id                   | String  |
-| home_destination_id  | String  |
 
-### 2. `wishlists.csv`
+### 2. `user_engagement_survey.csv`
 
 | Column Name   | Type    |
 |---------------|---------|
 | id            | String  |
 | user_id       | String  |
 | created_at    | Date    |
-| destination_id| String  |
+| question_id   | String  |
 
-### 3. `trip_matching.csv`
+### 3. `engagement_answer.csv`
 
-| Column Name     | Type    |
-|------------------|---------|
-| id               | String  |
-| travel_plan_id   | String  |
-| start_date       | Date    |
-| end_date         | Date    |
-| home_id          | String  |
-
----
-
-## Task 1: Long-Duration Matches
-
-**Goal**: Find users whose **average match duration** is **greater than 7 days**.
-
-1. Write code to join the necessary tables and compute the average match duration per user.
-2. Return the list of user IDs that meet this criterion.
-3. **Follow-up**: Assume `users` and `travel_plans` are small (≈10K records), but `trip_matching` is large (≈1B records). List **at least two ways** to optimize your solution. If the full solution is too complex to write in under 100 lines of code, please provide pseudocode or outline concrete optimization approaches.
+| Column Name   | Type    |
+|---------------|---------|
+| id            | String  |
+| survey_id     | String  |
+| question_id   | String  |
+| answer        | String  |
 
 ---
 
-## Task 2: Match Density
+## Task 1: Highly Engaged Users
 
-**Goal**: Calculate the **average number of matches per travel plan**.
+**Goal**: Identify users who have answered **more than 7 questions**.
 
-1. Write code that outputs the average number of matches for all travel plans.
-2. **Follow-up**: If both `travel_plans` and `trip_matching` tables are very large, explain how to **efficiently join** these tables. Mention any join strategies or optimizations you would apply. If the full solution is too complex to write in under 100 lines of code, please provide pseudocode or outline concrete optimization approaches.
+1. Join `user_engagement_survey` and `engagement_answer` on `survey_id`.
+2. Count the number of **distinct question_id** values answered per user.
+3. Return the list of **user IDs** who have answered more than 7 questions.
+4. **Follow-up**: Assume `users` and `user_engagement_survey` are small (≈10K records), but `engagement_answer` is large (≈1B records). Describe at least two strategies to optimize this computation (e.g., broadcast joins, partitioning, etc.).
+
+---
+
+## Task 2: Survey Density
+
+**Goal**: Calculate the **average number of answers per engagement survey**.
+
+1. Write code that outputs the average number of answers per `survey_id`.
+2. **Follow-up**: If both `user_engagement_survey` and `engagement_answer` are large datasets, explain how to **efficiently join** these tables. Mention any join strategies or optimizations you would apply (e.g., shuffling, filtering early, column pruning, etc.). If the full solution is too complex to write in under 100 lines of code, you may provide pseudocode or outline concrete optimization approaches.
 
 ---
 
 ## Submission
 
-- Submit your code as `.py`, jar package, or `.ipynb` files.
-- Provide a short write-up explaining your optimization approaches.
+- Submit your code as `.py`, `.jar`, or `.ipynb` files.
+- Provide a short write-up explaining your optimization techniques.
